@@ -29,7 +29,13 @@ export default class Task extends Component {
     return (
       <li className={classNames}>
         <div className="view">
-          <input type="checkbox" className="toggle" checked={completed} onChange={() => onToggleCompletion(id)} />
+          <input
+            type="checkbox"
+            id={id}
+            className="toggle"
+            checked={completed}
+            onChange={() => onToggleCompletion(id)}
+          />
           <label htmlFor={id}>
             <span className="description">{description}</span>
             <span className="created">created {formatDistanceToNow(created, { addSuffix: true })}</span>
