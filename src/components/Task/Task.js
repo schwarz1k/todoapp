@@ -4,7 +4,9 @@ import { Component } from 'react'
 import './Task.css'
 
 export default class Task extends Component {
-  state = { editText: this.props.description }
+  state = {
+    editText: this.props.description,
+  }
 
   handleChange = (event) => {
     this.setState({ editText: event.target.value })
@@ -19,8 +21,28 @@ export default class Task extends Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.description !== this.props.description) {
+      this.setState({ editText: this.props.description })
+    }
+  }
+
   render() {
-    const { id, description, created, completed, onDeleted, onToggleCompletion, onEdit, isEditing } = this.props
+    const {
+      id,
+      description,
+      created,
+      completed,
+      onDeleted,
+      onToggleCompletion,
+      onEdit,
+      isEditing,
+      minutes,
+      seconds,
+      timerRunning,
+      startTimer,
+      pauseTimer,
+    } = this.props
 
     let classNames = 'todo-list-item'
     if (completed) classNames += ' completed'
@@ -37,8 +59,13 @@ export default class Task extends Component {
             onChange={() => onToggleCompletion(id)}
           />
           <label htmlFor={id}>
-            <span className="description">{description}</span>
-            <span className="created">created {formatDistanceToNow(created, { addSuffix: true })}</span>
+            <span className="title">{description}</span>
+            <span className="description">
+              <button className="icon icon-play" onClick={startTimer} disabled={timerRunning}></button>
+              <button className="icon icon-pause" onClick={pauseTimer} disabled={!timerRunning}></button>
+              <span>{`${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`}</span>
+            </span>
+            <span className="created">создано {formatDistanceToNow(created, { addSuffix: true })}</span>
           </label>
           <button className="icon icon-edit" onClick={() => onEdit(id)}></button>
           <button className="icon icon-destroy" onClick={onDeleted}></button>
@@ -59,6 +86,9 @@ export default class Task extends Component {
 Task.defaultProps = {
   completed: false,
   isEditing: false,
+  minutes: 0,
+  seconds: 0,
+  timerRunning: false,
 }
 
 Task.propTypes = {
@@ -67,8 +97,13 @@ Task.propTypes = {
   created: PropTypes.instanceOf(Date).isRequired,
   completed: PropTypes.bool,
   isEditing: PropTypes.bool,
+  minutes: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  seconds: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  timerRunning: PropTypes.bool,
   onDeleted: PropTypes.func.isRequired,
   onToggleCompletion: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
   onSaveEdit: PropTypes.func.isRequired,
+  startTimer: PropTypes.func.isRequired,
+  pauseTimer: PropTypes.func.isRequired,
 }

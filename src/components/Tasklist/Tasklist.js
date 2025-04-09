@@ -1,20 +1,24 @@
-import TaskFunc from '../Task/Task'
-
+import Task from '../Task/Task'
 import './Tasklist.css'
 
-const Tasklist = ({ tasks, onDeleted, onToggleCompletion, onEdit, onSaveEdit }) => {
+const Tasklist = ({ tasks, onDeleted, onToggleCompletion, onEdit, onSaveEdit, startTimer, pauseTimer }) => {
   const elements = tasks.map((task) => {
     return (
-      <TaskFunc
+      <Task
         key={task.id}
         id={task.id}
         description={task.description}
         created={task.created}
         completed={task.completed}
+        isEditing={task.isEditing}
+        minutes={task.minutes}
+        seconds={task.seconds}
+        timerRunning={task.timerRunning}
+        startTimer={() => startTimer(task.id)}
+        pauseTimer={() => pauseTimer(task.id)}
         onDeleted={() => onDeleted(task.id)}
         onToggleCompletion={() => onToggleCompletion(task.id)}
-        onEdit={onEdit}
-        isEditing={task.isEditing}
+        onEdit={() => onEdit(task.id)}
         onSaveEdit={onSaveEdit}
       />
     )

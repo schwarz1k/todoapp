@@ -150,20 +150,29 @@
 }
 
 .todo-list li label .created {
-  font-size: 13px;
+  font-size: 14px;
   color: gray;
 }
 
 .todo-list li label .description {
+  position: relative;
+  font-size: 15px;
+  color: gray;
+  margin-left: 20px;
+}
+
+.todo-list li label .title {
   word-break: break-all;
   display: block;
   line-height: 1.2;
   transition: color 0.4s;
   font-weight: 400;
   color: #4d4d4d;
+  min-width: 130px;
+  max-width: 140px;
 }
 
-.todo-list li.completed label .description {
+.todo-list li.completed label .title {
   color: #cdcdcd;
   text-decoration: line-through;
 }
@@ -208,4 +217,30 @@
 
 .todo-list li.editing:last-child {
   margin-bottom: -1px;
+}
+
+.todo-list li .icon-pause,
+.todo-list li .icon-play {
+  width: 18px;
+  height: 18px;
+}
+
+.todo-list li .icon-play {
+  font-size: 15px;
+  right: 52px;
+  bottom: -10px;
+}
+
+.todo-list li .icon-pause {
+  font-size: 18px;
+  right: 38px;
+  bottom: -8px;
+}
+
+.icon-pause:after {
+  content: '⏸';
+}
+
+.icon-play:after {
+  content: '▶';
 }
