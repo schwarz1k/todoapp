@@ -11,8 +11,7 @@ const Tasklist = ({ tasks, onDeleted, onToggleCompletion, onEdit, onSaveEdit, st
         created={task.created}
         completed={task.completed}
         isEditing={task.isEditing}
-        minutes={task.minutes}
-        seconds={task.seconds}
+        timeInSeconds={task.timeInSeconds}
         timerRunning={task.timerRunning}
         startTimer={() => startTimer(task.id)}
         pauseTimer={() => pauseTimer(task.id)}

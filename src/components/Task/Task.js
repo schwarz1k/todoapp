@@ -27,6 +27,12 @@ export default class Task extends Component {
     }
   }
 
+  formatTime = (timeInSeconds) => {
+    const minutes = Math.floor(timeInSeconds / 60)
+    const seconds = timeInSeconds % 60
+    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
+  }
+
   render() {
     const {
       id,
@@ -37,8 +43,7 @@ export default class Task extends Component {
       onToggleCompletion,
       onEdit,
       isEditing,
-      minutes,
-      seconds,
+      timeInSeconds,
       timerRunning,
       startTimer,
       pauseTimer,
@@ -63,7 +68,7 @@ export default class Task extends Component {
             <span className="description">
               <button className="icon icon-play" onClick={startTimer} disabled={timerRunning}></button>
               <button className="icon icon-pause" onClick={pauseTimer} disabled={!timerRunning}></button>
-              <span>{`${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`}</span>
+              <span>{this.formatTime(timeInSeconds)}</span>
             </span>
             <span className="created">создано {formatDistanceToNow(created, { addSuffix: true })}</span>
           </label>
@@ -86,8 +91,7 @@ export default class Task extends Component {
 Task.defaultProps = {
   completed: false,
   isEditing: false,
-  minutes: 0,
-  seconds: 0,
+  timeInSeconds: 0,
   timerRunning: false,
 }
 
@@ -97,8 +101,7 @@ Task.propTypes = {
   created: PropTypes.instanceOf(Date).isRequired,
   completed: PropTypes.bool,
   isEditing: PropTypes.bool,
-  minutes: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  seconds: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  timeInSeconds: PropTypes.number.isRequired,
   timerRunning: PropTypes.bool,
   onDeleted: PropTypes.func.isRequired,
   onToggleCompletion: PropTypes.func.isRequired,

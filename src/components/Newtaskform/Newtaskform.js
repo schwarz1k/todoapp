@@ -28,6 +28,11 @@ export default class Newtaskform extends Component {
       return
     }
 
+    if (!minutes && !seconds) {
+      alert('Пожалуйста, укажите минуты или секунды для таймера!')
+      return
+    }
+
     this.props.addItem(label, minutes, seconds)
 
     this.setState({

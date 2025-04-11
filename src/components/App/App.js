@@ -13,11 +13,12 @@ export default class App extends Component {
   }
 
   addItem = (text, minutes, seconds) => {
+    const totalSeconds = (Number(minutes) || 0) * 60 + (Number(seconds) || 0)
+
     const newItem = {
       id: Math.random().toString(36).slice(2),
       description: text,
-      minutes: minutes ? Number(minutes) : 60,
-      seconds: seconds ? Number(seconds) : 0,
+      timeInSeconds: totalSeconds,
       created: new Date(),
       completed: false,
       isEditing: false,
@@ -83,8 +84,7 @@ export default class App extends Component {
               completed: true,
               timerRunning: false,
               timerId: null,
-              minutes: 0,
-              seconds: 0,
+              timeInSeconds: 0,
             }
           }
           return { ...task, completed: false }
@@ -136,29 +136,19 @@ export default class App extends Component {
         const timerId = setInterval(() => {
           this.setState(({ tasks: currentTasks }) => {
             const updatedTasks = currentTasks.map((t) => {
-              if (t.id !== id) {
-                return t
-              }
+              if (t.id !== id) return t
 
               if (!t.timerRunning) {
                 clearInterval(t.timerId)
                 return t
               }
 
-              if (t.minutes === 0 && t.seconds === 0) {
+              if (t.timeInSeconds === 0) {
                 clearInterval(t.timerId)
                 return { ...t, timerRunning: false, timerId: null }
               }
 
-              let { minutes, seconds } = t
-              if (seconds === 0) {
-                if (minutes === 0) {
-                  clearInterval(t.timerId)
-                  return { ...t, timerRunning: false, timerId: null }
-                }
-                return { ...t, minutes: minutes - 1, seconds: 59 }
-              }
-              return { ...t, seconds: seconds - 1 }
+              return { ...t, timeInSeconds: t.timeInSeconds - 1 }
             })
             return { tasks: updatedTasks }
           })
