@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react'
 
-import NewTaskForm from '../Newtaskform/NewTaskForm'
-import TaskList from '../Tasklist/TaskList'
+import NewTaskForm from '../NewTaskForm/NewTaskForm'
+import TaskList from '../TaskList/TaskList'
 import Footer from '../Footer/Footer'
 
 import './App.css'

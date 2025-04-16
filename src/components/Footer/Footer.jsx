@@ -1,6 +1,6 @@
 import './Footer.css'
 
-import TasksFilter from '../Tasksfilter/TasksFilter'
+import TasksFilter from '../TasksFilter/TasksFilter'
 
 const Footer = ({ counterTasks, setFilterValue, filterValue, clearAllTasks }) => {
   return (
