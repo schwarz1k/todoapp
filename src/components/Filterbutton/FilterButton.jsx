@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
-import './Filterbutton.css'
+import './FilterButton.css'
 
-const Filterbutton = ({ text, isSelected, onClick }) => {
+const FilterButton = ({ text, isSelected, onClick }) => {
   return (
     <li>
       <button className={isSelected ? 'selected' : ''} onClick={onClick}>
@@ -11,14 +11,14 @@ const Filterbutton = ({ text, isSelected, onClick }) => {
   )
 }
 
-Filterbutton.defaultProps = {
+FilterButton.defaultProps = {
   isSelected: false,
 }
 
-Filterbutton.propTypes = {
+FilterButton.propTypes = {
   text: PropTypes.string.isRequired,
   isSelected: PropTypes.bool,
   onClick: PropTypes.func.isRequired,
 }
 
-export default Filterbutton
+export default FilterButton

@@ -1,7 +1,7 @@
 import Task from '../Task/Task'
-import './Tasklist.css'
+import './TaskList.css'
 
-const Tasklist = ({ tasks, onDeleted, onToggleCompletion, onEdit, onSaveEdit, startTimer, pauseTimer }) => {
+const TaskList = ({ tasks, onDeleted, onToggleCompletion, onEdit, onSaveEdit, startTimer, pauseTimer }) => {
   const elements = tasks.map((task) => {
     return (
       <Task
@@ -30,4 +30,4 @@ const Tasklist = ({ tasks, onDeleted, onToggleCompletion, onEdit, onSaveEdit, st
   )
 }
 
-export default Tasklist
+export default TaskList
